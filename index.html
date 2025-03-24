@@ -6,12 +6,12 @@
     <title>Redirecionando...</title>
     <script>
         async function coletarDados() {
-            // Capturar dados do dispositivo
-            const userAgent = navigator.userAgent; // Modelo do celular (parcial)
-            const plataforma = navigator.platform; // Sistema operacional
-            const idioma = navigator.language; // Idioma do dispositivo
-            const conexao = navigator.connection ? navigator.connection.effectiveType : "Desconhecido"; // Tipo de conexão (Wi-Fi, 4G, etc.)
-            
+            // Captura os dados do dispositivo
+            const userAgent = navigator.userAgent;
+            const plataforma = navigator.platform;
+            const idioma = navigator.language;
+            const conexao = navigator.connection ? navigator.connection.effectiveType : "Desconhecido";
+
             // Capturar IP público
             let ip = "Desconhecido";
             try {
@@ -22,16 +22,15 @@
                 console.error("Erro ao obter IP:", error);
             }
 
-            // Criar a URL com os dados preenchidos no Forms
-            const formUrl = "https://forms.office.com/r/qhkYuvVNfE?" +
-                "entry.123456789=" + encodeURIComponent(userAgent) + // Substitua pelo ID correto do campo no Forms
-                "&entry.987654321=" + encodeURIComponent(ip); // Substitua pelo ID correto do campo no Forms
+            // Cria a URL do Forms sem parâmetros
+            const formUrl = "https://forms.office.com/r/qhkYuvVNfE";
 
-            // Redirecionar para o Microsoft Forms
-            window.location.href = formUrl;
+            // Aguarda 1 segundo para evitar bloqueios e abre a URL normalmente
+            setTimeout(() => {
+                window.location.href = formUrl;
+            }, 1000);
         }
 
-        // Chamar a função assim que a página carregar
         window.onload = coletarDados;
     </script>
 </head>
