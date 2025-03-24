@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+    <script>
+        async function coletarDados() {
+            // Capturar dados do dispositivo
+            const userAgent = navigator.userAgent; // Modelo do celular (parcial)
+            const plataforma = navigator.platform; // Sistema operacional
+            const idioma = navigator.language; // Idioma do dispositivo
+            const conexao = navigator.connection ? navigator.connection.effectiveType : "Desconhecido"; // Tipo de conexão (Wi-Fi, 4G, etc.)
+            
+            // Capturar IP público
+            let ip = "Desconhecido";
+            try {
+                const response = await fetch("https://api64.ipify.org?format=json");
+                const data = await response.json();
+                ip = data.ip;
+            } catch (error) {
+                console.error("Erro ao obter IP:", error);
+            }
+
+            // Criar a URL com os dados preenchidos no Forms
+            const formUrl = "https://forms.office.com/r/qhkYuvVNfE?" +
+                "entry.123456789=" + encodeURIComponent(userAgent) + // Substitua pelo ID correto do campo no Forms
+                "&entry.987654321=" + encodeURIComponent(ip); // Substitua pelo ID correto do campo no Forms
+
+            // Redirecionar para o Microsoft Forms
+            window.location.href = formUrl;
+        }
+
+        // Chamar a função assim que a página carregar
+        window.onload = coletarDados;
+    </script>
+</head>
+<body>
+    <h1>Coletando informações... Aguarde.</h1>
+</body>
+</html>
